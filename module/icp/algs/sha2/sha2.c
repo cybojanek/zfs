@@ -104,6 +104,18 @@ static alg_impl_ops_t sha256_avx = {
 	sha256_avx_transform, sha256_avx_will_work, 10, "sha-avx"};
 #endif
 
+#if defined(__amd64) && defined(HAVE_AVX2)
+static boolean_t
+sha256_avx2_will_work(void)
+{
+	return (kfpu_allowed() && zfs_avx2_available());
+}
+
+extern void sha256_avx2_transform(SHA2_CTX *ctx, const void *in, size_t num);
+static alg_impl_ops_t sha256_avx2 = {
+	sha256_avx2_transform, sha256_avx2_will_work, 20, "sha-avx2"};
+#endif
+
 #if defined(__amd64) && defined(HAVE_SSSE3)
 static boolean_t
 sha256_ssse3_will_work(void)
@@ -136,6 +148,9 @@ static const alg_impl_ops_t *sha256_all_impl[] = {
 #endif
 #if defined(__amd64) && defined(HAVE_AVX)
 	&sha256_avx,
+#endif
+#if defined(__amd64) && defined(HAVE_AVX2)
+	&sha256_avx2,
 #endif
 #if defined(__amd64) && defined(HAVE_SSSE3)
 	&sha256_ssse3,

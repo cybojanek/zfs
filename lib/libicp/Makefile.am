@@ -20,6 +20,7 @@ ASM_SOURCES_AS = \
 	asm-x86_64/sha1/sha1-x86_64.S \
 	asm-x86_64/sha2/sha256_impl.S \
 	asm-x86_64/sha2/sha256_avx.S \
+	asm-x86_64/sha2/sha256_avx2.S \
 	asm-x86_64/sha2/sha256_ssse3.S \
 	asm-x86_64/sha2/sha256_ni.S \
 	asm-x86_64/sha2/sha512_impl.S \
